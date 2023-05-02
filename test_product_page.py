@@ -49,7 +49,7 @@ class TestUserAddToBasketFromProductPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
         email = str(time.time()) + "@fakemail.org"
-        password = generate_password()
+        password = "123543rregregawed"
         link = "http://selenium1py.pythonanywhere.com/accounts/login/"
         login_page = LoginPage(browser, link)
         login_page.open()
