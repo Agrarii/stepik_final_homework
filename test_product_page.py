@@ -47,17 +47,14 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
 @pytest.mark.user
 class TestUserAddToBasketFromProductPage():
     @pytest.fixture(scope="function", autouse=True)
-    def test_registr(self, browser):
-        link = "http://selenium1py.pythonanywhere.com/accounts/login/" 
+    def setup(self, browser):
+        email = str(time.time()) + "@fakemail.org"
+        password = generate_password()
+        link = "http://selenium1py.pythonanywhere.com/accounts/login/"
         login_page = LoginPage(browser, link)
         login_page.open()
-        email = str(time.time()) + "@fakemail.org"
-        password = 'wewdwda23456789'
         login_page.register_new_user(email, password)
-        link2 = "http://selenium1py.pythonanywhere.com/ru/"
-        base_page = BasePage(browser, link2)
-        base_page.open()
-        base_page.should_be_authorized_user  
+        login_page.should_be_authorized_user() 
 
     def test_user_cant_see_success_message(self, browser):
         link = "http://selenium1py.pythonanywhere.com/basket/"
@@ -65,6 +62,7 @@ class TestUserAddToBasketFromProductPage():
         page.open()
         page.should_not_be_success_message()
         page.is_basket_empty()
+        
     @pytest.mark.need_review
     def test_user_can_add_product_to_cart(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/"
